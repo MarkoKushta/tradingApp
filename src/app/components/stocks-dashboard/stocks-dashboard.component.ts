@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StockServicesService } from 'src/app/services/stock-services/stock-services.service';
+
 
 @Component({
   selector: 'app-stocks-dashboard',
@@ -10,19 +12,68 @@ import { StockServicesService } from 'src/app/services/stock-services/stock-serv
 })
 export class StocksDashboardComponent implements OnInit {
 
-  closingPrice !: any[];
+  stocks: string[] = [
+    "AAPL",
+    "GOOGL",
+    "MSFT",
+    "AMZN",
+    "FB",
+    "TSLA",
+    "NVDA",
+    "JPM",
+    "JNJ",
+    "V",
+    "UNH",
+    "PG",
+    "HD",
+    "MA",
+    "DIS",
+    "BAC",
+    "VZ",
+    "XOM",
+    "KO",
+    "CMCSA",
+    "PFE",
+    "CSCO",
+    "MRK",
+    "BA",
+    "WMT",
+    "INTC",
+    "CVX",
+    "MCD",
+    "IBM",
+    "NKE",
+    "AXP",
+    "GS",
+    "CAT",
+    "MMM",
+    "GE",
+    "UTX",
+    "HON",
+    "DD",
+    "TRV",
+    "RTX",
+    "LLY",
+    "WBA",
+    "DOW",
+    "EMR",
+    "DELL",
+    "HPQ",
+    "ORCL",
+    "TXN",
+    "QCOM",
+    "ADBE"
+  ];
 
-  ngOnInit() {
-    this.getStocks()
-  }
+  constructor(
+    private stockService: StockServicesService,
+    private router: Router
+  ) {}
 
-  constructor(private stockService: StockServicesService) {}
+  ngOnInit() {}
 
-  getStocks() {
-    this.stockService.searchStocks('TSLA').subscribe((res) => {
-      this.closingPrice = res;
-      console.log(res);
-    });
+  navigateToStocks(symbol: string) {
+    this.router.navigate(['/stocks', symbol]);
   }
 
 }

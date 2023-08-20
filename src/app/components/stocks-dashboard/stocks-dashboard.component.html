@@ -1,5 +1,3 @@
 <div>
-  <p *ngFor="let item of closingPrice">
-    {{item}}
-  </p>
+  <p *ngFor="let item of stocks" (click)="navigateToStocks(item)">{{item}}</p>
 </div>
