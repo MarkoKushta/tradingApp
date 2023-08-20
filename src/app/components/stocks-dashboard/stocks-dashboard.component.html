@@ -1,3 +1,41 @@
-<div>
-  <p *ngFor="let item of stocks" (click)="navigateToStocks(item)">{{item}}</p>
+
+<div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+        <div class="border bg-white">
+          <div class="panel-heading">
+            <h3 class="pt-3 font-weight-bold">Active Stocks</h3>
+          </div>
+          <div class="body p-3">
+              <div class="form-group pt-3">
+                <div class="bg-white">
+                  <!--<div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search stocks" [(ngModel)]="searchQuery" (input)="searchStocks()">
+                  </div> -->
+                  <ul>
+                    <li *ngFor="let stock of paginatedStocks" (click)="navigateToStocks(stock)">
+                    <div style="display:flex; align-items:center">
+                      <img src="https://dummyimage.com/40x40/000/fff" alt="Stock image">
+                      <p>{{ stock }}</p>
+                    </div>
+                    <div class="curr-price">
+                      <div class="curr-price inner">
+                        $X
+                      </div>
+                    </div>
+                    <div class="right-div">Details</div>
+                  </li>
+                  </ul>
+                  <div class="pagination">
+                    <button class="btn btn-primary btn-block mt-4 w-100 font-weight-bold" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                    <button class="btn btn-primary btn-block mt-4 w-100 font-weight-bold" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -65,16 +65,50 @@ export class StocksDashboardComponent implements OnInit {
     "ADBE"
   ];
 
+  ngOnInit() {}
+
+  //searchQuery = '';
+  filteredStocks: string[] = this.stocks;
+/*
+  searchStocks(): void {
+    this.filteredStocks = this.stocks.filter(stock => stock.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    this.currentPage = 1;
+  }
+*/
+  currentPage = 1;
+  itemsPerPage = 10;
+
   constructor(
     private stockService: StockServicesService,
     private router: Router
   ) {}
 
-  ngOnInit() {}
-
-  navigateToStocks(symbol: string) {
-    this.router.navigate(['/stocks', symbol]);
+  get totalPages(): number {
+    return Math.ceil(this.stocks.length / this.itemsPerPage);
   }
 
+  get paginatedStocks(): string[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+
+	  return this.stocks.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  navigateToStocks(symbol: string) {
+	this.router.navigate(['/stocks', symbol]);
+  }
 }
+
 
