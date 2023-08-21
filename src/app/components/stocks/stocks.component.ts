@@ -29,4 +29,13 @@ export class StocksComponent implements OnInit {
     });
   }
 
+   get latestPrice(): number {
+    return this.closingPrice[this.closingPrice.length - 1]; ;
+  }
+
+  buyStock(): void {
+    console.log(`Buying ${this.symbol} stock at ${this.latestPrice}`);
+  }
+
+
 }
