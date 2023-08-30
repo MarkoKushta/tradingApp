@@ -22,4 +22,11 @@ export class AuthService {
 
   }
 
+  isAuthenticated(): boolean {
+    // Check if user is authenticated
+    // For example, you can check if a token is stored in localStorage
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
 }

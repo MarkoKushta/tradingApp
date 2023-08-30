@@ -5,6 +5,7 @@ import ValidateForm from 'src/app/helpers/validateform';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import jwt_decode from 'jwt-decode';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,21 +14,28 @@ import jwt_decode from 'jwt-decode';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  constructor(private fb : FormBuilder, private auth : AuthService, private router : Router) { }
+  constructor(
+    private fb : FormBuilder,
+    private auth : AuthService,
+    private router : Router,
+    ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+
   }
 
   onLogin() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
+
       this.auth.login(this.loginForm.value).subscribe({
         next: (res) => {
           // Extract userId from response
+
           localStorage.clear();
           const response = this.getDecodedAccessToken(res.token);
           const userId = response.UserId;
@@ -35,6 +43,7 @@ export class LoginComponent implements OnInit {
           const email = response.Email;
 
           // Store userId in local storage
+          localStorage.setItem('token', res.token);
           localStorage.setItem('userId', userId);
           localStorage.setItem('userName', userName);
           localStorage.setItem('email', email);
@@ -59,13 +68,14 @@ export class LoginComponent implements OnInit {
 
   }
 
+
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
     } catch(Error) {
       return null;
     }
-  }
 
+  }
 }
 

@@ -17,7 +17,7 @@
           </div>
          </div>
          <div class="" style="background-color: white; max-width: 300px; max-height: 105px; border-radius: 10px;">
-          <div class="kyc-popup" style="margin-left: 15px;" *ngIf="!isKycCompleted">
+          <div class="kyc-popup" style="margin-left: 15px;" *ngIf="isKycCompleted === 'False'">
             <div class="kyc-popup-content" style="margin-top: 25px;">
               <h4>KYC is not completed</h4>
               <button class="btn btn-primary" style="margin-bottom: 45px;" (click)="navigateToKyc()">Complete KYC</button>
@@ -25,10 +25,14 @@
           </div>
         </div>
         <div class="panel border bg-white">
-          <div class="panel-heading">
+          <div class="panel-heading" style="display: flex; justify-content: space-between; margin-right: 15px;">
             <h3 class="pt-3 font-weight-bold" style="text-align: left; margin-left: 25px;">Hello {{ userName }}</h3>
-            <hr style="margin-left: 20px; margin-right: 20px;">
+            <button class="btn btn-primary font-weight-bold balance"
+            style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;" (click)="OnLogout()">
+              Log Out
+            </button>
           </div>
+          <hr style="margin-left: 20px; margin-right: 20px;">
           <div class="body p-3">
             <div class="form-group">
               <div class="bg-white">
@@ -107,7 +111,31 @@
                     </form>
                   </div>
                   <div style="color: #d6954a;"*ngIf="isKycCompleted === 'True'">
-                    KYC is completed
+                    <div class="change-psw-container" style="
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    flex-wrap: nowrap;
+                    align-items: baseline;
+                    justify-content: flex-start;">
+                    <div class="change-password-text">KYC is Completed:</div>
+                    <button class="btn btn-primary font-weight-bold balance"
+                    style="margin-bottom: 75px; margin-left: 39px; max-width: 200px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                    (click)="showMoneyForm = !showMoneyForm">Add Money</button>
+                    <form style="margin-top: 25px; margin-left: 34px;"*ngIf="showMoneyForm">
+                      <div class="input-field" style="max-width: 300px;">
+                        <div class="change-password-text"style="max-width: 300px;">
+                          {{ email }}
+                        </div>
+                      </div>
+                      <div class="input-field" style="max-width: 400px; margin-top: 5px;">
+                        <input [(ngModel)]="Amount" name="Amount" type="amount" style="max-width: 300px; border:none;" placeholder="Amount">
+                      </div>
+                      <button class="btn btn-primary font-weight-bold balance"
+                      style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                      (click)="addMoney()">Submit</button>
+                    </form>
+                  </div>
                   </div>
                 </div>
               </div>

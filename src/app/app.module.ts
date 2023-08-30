@@ -10,8 +10,8 @@ import { StocksDashboardComponent } from './components/stocks-dashboard/stocks-d
 import { StocksComponent } from './components/stocks/stocks.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { CookieService } from 'ngx-cookie-service';
-import { StockSellComponent } from './stock-sell/stock-sell.component';
-import { OptionsComponent } from './options/options.component';
+import { StockSellComponent } from './components/stock-sell/stock-sell.component';
+import { OptionsComponent } from './components/options/options.component';
 import { KycFormComponent } from './components/kyc-form/kyc-form.component';
 
 @NgModule({

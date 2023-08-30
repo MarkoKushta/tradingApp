@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { StockServicesService } from '../services/stock-services/stock-services.service';
-import { UserServicesService } from '../services/user-services/user-services.service';
+import { StockServicesService } from '../../services/stock-services/stock-services.service';
+import { UserServicesService } from '../../services/user-services/user-services.service';
 
 @Component({
   selector: 'app-options',
@@ -23,6 +23,7 @@ export class OptionsComponent implements OnInit {
     Balance: any;
     userName: any;
     email: any;
+    Amount : any;
     showPasswordForm = false;
     showUsernameForm = false;
     showEmailForm = false;
@@ -34,6 +35,7 @@ export class OptionsComponent implements OnInit {
     newUsername: string = '';
     usernameChanged = false;
     isKycCompleted: any;
+    showMoneyForm = false;
 
 
     ngOnInit() {
@@ -213,6 +215,21 @@ export class OptionsComponent implements OnInit {
           console.error(error);
           this.emailChanged = false;
         });
+    }
+
+    addMoney() {
+      this.userService.addMoney(this.userId, this.Amount)
+      .subscribe(response => {
+        console.log(response);
+        this.Balance = this.Amount;
+        this.showMoneyForm = false;
+      });
+    }
+
+
+    OnLogout() {
+      localStorage.clear();
+      this.router.navigate([''])
     }
 
     navigateToPortfolio() {

@@ -16,7 +16,7 @@ export class StocksDashboardComponent implements OnInit {
   intervalId: any;
   userId = localStorage.getItem('userId');
   Balance: any;
-
+  isKycCompleted: any;
   stocks: string[] = [
     "AAPL",
     "GOOGL",
@@ -138,8 +138,17 @@ export class StocksDashboardComponent implements OnInit {
     this.stockService.getBalanceByUser(this.userId).subscribe(
       (balance) => {
         // Round down balance to nearest integer
-        this.Balance = Math.floor(balance);
+        this.Balance = Math.floor(balance.balance);
         console.log(this.Balance);
+
+        if(balance.status === 0){
+          this.isKycCompleted = 'False';
+        }
+        else{
+          this.isKycCompleted = 'True';
+        }
+        localStorage.setItem('isKycCompleted', this.isKycCompleted);
+        console.log(this.isKycCompleted);
         return this.Balance;
       },
       (error) => {

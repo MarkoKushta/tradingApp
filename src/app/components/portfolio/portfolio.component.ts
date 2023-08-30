@@ -34,14 +34,6 @@ export class PortfolioComponent implements OnInit {
       this.stockService.getStocksByUser(this.userId).subscribe(res => {
         this.boughtStocksList = res.response;
         console.log(res);
-        if(res.status === 0){
-          this.isKycCompleted = 'False';
-        }
-        else{
-          this.isKycCompleted = 'True';
-        }
-        localStorage.setItem('isKycCompleted', this.isKycCompleted);
-        console.log(this.isKycCompleted);
 
       });
     }

@@ -31,4 +31,9 @@ export class UserServicesService {
   postKYC(userId: any, kycObj : any){
     return this.http.post<any>(`${this.apiUrl}/KYC?userId=${userId}`, kycObj);
   }
+
+  addMoney(userId : any, Amount: any ){
+    return this.http.post<any>(`${this.apiUrl}/AddMoney?dollas=${Amount}&userId=${userId}`, {});
+  }
+
 }
