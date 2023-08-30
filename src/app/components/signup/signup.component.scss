@@ -1,6 +1,7 @@
 .outer{
   height: 100vh;
   background: linear-gradient(to top, #c9c9c9 50%, #6e6e6e 90%) no-repeat;
+  align-items: center;
 }
 
 .panel-heading{
@@ -58,8 +59,7 @@ a{
   color: red;
 }
 
-input[type='text'],
-input[type='password']{
+input{
   border: none;
   outline: none;
   box-shadow: none;

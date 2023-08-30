@@ -1,0 +1,109 @@
+<div class="outer">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 class="pt-3 font-weight-bold" style="cursor: default;" (click)="navigateToDashboard()">Market Status:
+        <span [ngStyle]="{ color: marketStatus === 'Open' ? 'green' : 'red' }">
+          {{ marketStatus }}
+        </span>
+      </h3>
+      <div>
+        <button
+          class="btn btn-primary font-weight-bold balance"
+          style="
+            margin-right: 15px;
+            width: 100px;
+            border-radius: 5px;
+            background-color: #d6954a;
+            border-color: #d6954a;
+          "
+          (click)="navigateToPortfolio()"
+        >
+          ${{Balance}}
+        </button>
+        <button class="btn btn-primary font-weight-bold rounded-circle" style="margin-right: 15px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;" (click)="navigateToOptions()">O</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="">
+        <div class="panel border bg-white">
+          <div class="panel-heading">
+            <h3 class="pt-3 font-weight-bold">Your Stocks</h3>
+          </div>
+          <li class="above-list" style="background-color: white;">
+            <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  max-width: 500px;
+                  margin-left: 90px;"
+                >
+                <p>Stock</p>
+                <div class="prices" style="margin-left: 200px;">
+                  <div class="curr-price">
+                    <div class="curr-price quantity inner">
+                      Amount
+                    </div>
+                  </div>
+                  <div class="curr-price" style="margin-left: 175px;">
+                    <div class="curr-price buy inner">
+                      Buying price
+                    </div>
+                  </div>
+              </div>
+          </div>
+          </li>
+          <div class="body p-3" style="max-height: 650px; overflow-y: scroll; overflow-x: hidden; margin-bottom: 15px">
+            <div
+              class="form-group pt-3"
+              style="
+                margin-left: 50px;
+                margin-right: 50px;
+              "
+            >
+              <div class="bg-white">
+                <!--<div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search stocks" [(ngModel)]="searchQuery" (input)="searchStocks()">
+                  </div> -->
+                <ul>
+                  <li *ngFor="let stock of boughtStocksList">
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        max-width: 500px;
+                      "
+                    >
+                      <img
+                        src="https://dummyimage.com/40x40/000/fff"
+                        alt="Stock image"
+                      />
+                      <p>{{ stock.stockName }}</p>
+                    </div>
+                    <div class="curr-price">
+                      <div class="curr-price quantity inner">
+                        {{ stock.quantity }}
+                      </div>
+                    </div>
+                    <div class="prices">
+                      <div class="curr-price">
+                        <div class="curr-price buy inner">
+                          {{ stock.buyingPrice }}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      class="right-div"
+                      (click)="onStockClick(stock)"
+                    >
+                      Sell
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

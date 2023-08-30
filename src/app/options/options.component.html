@@ -1,0 +1,120 @@
+<div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 class="pt-3 font-weight-bold" style="cursor: default;" (click)="navigateToDashboard()">Market Status:
+            <span [ngStyle]="{ color: marketStatus === 'Open' ? 'green' : 'red' }">
+              {{ marketStatus }}
+            </span>
+          </h3>
+          <div>
+            <button class="btn btn-primary font-weight-bold balance"
+            style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;" (click)="navigateToPortfolio()">
+              ${{Balance}}
+            </button>
+            <button class="btn btn-primary font-weight-bold rounded-circle" style="margin-right: 15px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;" (click)="navigateToOptions()">O</button>
+          </div>
+         </div>
+         <div class="" style="background-color: white; max-width: 300px; max-height: 105px; border-radius: 10px;">
+          <div class="kyc-popup" style="margin-left: 15px;" *ngIf="!isKycCompleted">
+            <div class="kyc-popup-content" style="margin-top: 25px;">
+              <h4>KYC is not completed</h4>
+              <button class="btn btn-primary" style="margin-bottom: 45px;" (click)="navigateToKyc()">Complete KYC</button>
+            </div>
+          </div>
+        </div>
+        <div class="panel border bg-white">
+          <div class="panel-heading">
+            <h3 class="pt-3 font-weight-bold" style="text-align: left; margin-left: 25px;">Hello {{ userName }}</h3>
+            <hr style="margin-left: 20px; margin-right: 20px;">
+          </div>
+          <div class="body p-3">
+            <div class="form-group">
+              <div class="bg-white">
+                <div class="panel-body">
+                  <div class="change-psw-container" style="
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    flex-wrap: nowrap;
+                    align-items: baseline;
+                    justify-content: flex-start;">
+                    <div class="change-password-text">Change Password:</div>
+                    <button class="btn btn-primary font-weight-bold balance"
+                    style="margin-bottom: 75px; max-width: 200px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                    (click)="showPasswordForm = !showPasswordForm">Change Password</button>
+                    <form style="margin-top: 25px; margin-left: 15px;"*ngIf="showPasswordForm">
+                      <div class="input-field" style="max-width: 300px;">
+                        <input [(ngModel)]="oldPassword" name="oldPassword" type="password" style="max-width: 300px;" placeholder="Old Password">
+                      </div>
+                      <div class="input-field" style="max-width: 300px; margin-top: 5px;">
+                        <input [(ngModel)]="newPassword" name="newPassword" type="password" style="max-width: 300px;" placeholder="New Password">
+                      </div>
+                      <button class="btn btn-primary font-weight-bold balance"
+                      style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                      (click)="changePassword()">Submit</button>
+                    </form>
+                  </div>
+                  <div class="change-psw-container" style="
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    flex-wrap: nowrap;
+                    align-items: baseline;
+                    justify-content: flex-start;">
+                    <div class="change-password-text">Change Email:</div>
+                    <button class="btn btn-primary font-weight-bold balance"
+                    style="margin-bottom: 75px; margin-left: 39px; max-width: 200px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                    (click)="showEmailForm = !showEmailForm">Change Email</button>
+                    <form style="margin-top: 25px; margin-left: 34px;"*ngIf="showEmailForm">
+                      <div class="input-field" style="max-width: 300px;">
+                        <div class="change-password-text"style="max-width: 300px;">
+                          {{ email }}
+                        </div>
+                      </div>
+                      <div class="input-field" style="max-width: 400px; margin-top: 5px;">
+                        <input [(ngModel)]="newEmail" name="newEmail" type="email" style="max-width: 300px; border:none;" placeholder="New Email">
+                      </div>
+                      <button class="btn btn-primary font-weight-bold balance"
+                      style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                      (click)="changeEmail()">Submit</button>
+                    </form>
+                  </div>
+                  <div class="change-psw-container" style="
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    flex-wrap: nowrap;
+                    align-items: baseline;
+                    justify-content: flex-start;">
+                    <div class="change-password-text">Change Userame:</div>
+                    <button class="btn btn-primary font-weight-bold balance"
+                    style="margin-bottom: 75px; max-width: 200px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                    (click)="showUsernameForm = !showUsernameForm">Change Username</button>
+                    <form style="margin-top: 25px; margin-left: 15px;"*ngIf="showUsernameForm">
+                      <div class="input-field" style="max-width: 300px;">
+                        <div class="change-password-text"style="max-width: 300px;">
+                          {{ userName }}
+                        </div>
+                      </div>
+                      <div class="input-field" style="max-width: 400px; margin-top: 5px;">
+                        <input [(ngModel)]="newUsername" name="newUsername" type="username" style="max-width: 300px; border:none;" placeholder="New Username">
+                      </div>
+                      <button class="btn btn-primary font-weight-bold balance"
+                      style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;"
+                      (click)="changeUsername()">Submit</button>
+                    </form>
+                  </div>
+                  <div style="color: #d6954a;"*ngIf="isKycCompleted === 'True'">
+                    KYC is completed
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

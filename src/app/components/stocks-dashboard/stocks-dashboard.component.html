@@ -1,30 +1,46 @@
 
 <div class="outer">
-  <div class="container">
+  <div class="container" >
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 class="pt-3 font-weight-bold" style="cursor: default;" (click)="navigateToDashboard()">Market Status:
+        <span [ngStyle]="{ color: marketStatus === 'Open' ? 'green' : 'red' }">
+          {{ marketStatus }}
+        </span>
+      </h3>
+      <div>
+      <button class="btn btn-primary font-weight-bold balance"
+      style="margin-right: 15px; width: 100px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;" (click)="navigateToPortfolio()">
+        ${{ Balance }}
+      </button>
+      <button class="btn btn-primary font-weight-bold rounded-circle" style="margin-right: 15px; border-radius: 5px; background-color: #d6954a; border-color: #d6954a;" (click)="navigateToOptions()">O</button>
+    </div>
+   </div>
     <div class="row">
       <div class="">
-        <div class="border bg-white">
+        <div class="panel border bg-white">
           <div class="panel-heading">
             <h3 class="pt-3 font-weight-bold">Active Stocks</h3>
           </div>
           <div class="body p-3">
-              <div class="form-group pt-3">
+              <div class="form-group pt-3" style="
+              margin-left: 50px;
+              margin-right: 50px;">
                 <div class="bg-white">
                   <!--<div class="form-group">
                     <input type="text" class="form-control" placeholder="Search stocks" [(ngModel)]="searchQuery" (input)="searchStocks()">
                   </div> -->
                   <ul>
-                    <li *ngFor="let stock of paginatedStocks" (click)="navigateToStocks(stock)">
+                    <li *ngFor="let stock of paginatedStocks">
                     <div style="display:flex; align-items:center">
                       <img src="https://dummyimage.com/40x40/000/fff" alt="Stock image">
                       <p>{{ stock }}</p>
                     </div>
                     <div class="curr-price">
                       <div class="curr-price inner">
-                        $X
+                        ${{ randomInt }}
                       </div>
                     </div>
-                    <div class="right-div">Details</div>
+                    <button class="right-div" (click)="navigateToStocks(stock)">Details</button>
                   </li>
                   </ul>
                   <div class="pagination">
@@ -39,3 +55,4 @@
     </div>
   </div>
 </div>
+

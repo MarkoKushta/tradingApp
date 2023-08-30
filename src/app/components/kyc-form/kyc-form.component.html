@@ -1,0 +1,63 @@
+<div class="outer">
+  <div class="container">
+    <button
+        class="btn btn-primary font-weight-bold" style="max-width: 150px; height: 40px;"
+        (click)="navigateToSettings()"> Back to Options </button>
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+        <div class="panel border bg-white">
+          <div class="panel-heading">
+            <h3 class="pt-3 font-weight-bold">KYC Form</h3>
+          </div>
+          <div class="panel-body p-3">
+            <form [formGroup]="kycForm">
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="kycForm.controls['PhoneNumber'].dirty && kycForm.hasError('required','PhoneNumber')">
+                  <span class="fa fa-phone"></span>
+                    <input formControlName="PhoneNumber" type="text" placeholder="Phone Number"style="border: none; margin-left: 17px;">
+                </div>
+              </div>
+              <small *ngIf="kycForm.controls['PhoneNumber'].dirty && kycForm.hasError('required','PhoneNumber')" class="text-danger">*Name is required</small>
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="kycForm.controls['Address'].dirty && kycForm.hasError('required','Address')">
+                  <span class="fa fa-map-marker"></span>
+                    <input formControlName="Address" type="text" placeholder="Address"style="border: none; margin-left: 17px;">
+                </div>
+              </div>
+              <small *ngIf="kycForm.controls['Address'].dirty && kycForm.hasError('required','Address')" class="text-danger">*Surname is required</small>
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="kycForm.controls['CardNumber'].dirty && kycForm.hasError('required','CardNumber')">
+                  <span class="fa fa-credit-card" aria-hidden="true"></span>
+                    <input formControlName="CardNumber" type="text" placeholder="CardNumber"style="border: none; margin-left: 10px;">
+                </div>
+              </div>
+              <small *ngIf="kycForm.controls['CardNumber'].dirty && kycForm.hasError('required','CardNumber')" class="text-danger">*CardNumber is required</small>
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="kycForm.controls['CardHolderName'].dirty && kycForm.hasError('required','CardHolderName')">
+                  <span class="fa fa-credit-card" aria-hidden="true"></span>
+                    <input formControlName="CardHolderName" type="text" placeholder="CardHolderName" style="border: none; margin-left: 10px;">
+                </div>
+              </div>
+              <small *ngIf="kycForm.controls['CardHolderName'].dirty && kycForm.hasError('required','CardHolderName')" class="text-danger">*CardHolderName is required</small>
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="kycForm.controls['ExpirationDate'].dirty && kycForm.hasError('required','ExpirationDate')">
+                  <span class="fa fa-credit-card"></span>
+                    <input formControlName="ExpirationDate" type="ExpirationDate" placeholder="ExpirationDate" style="border: none; margin-left: 10px;">
+                </div>
+              </div>
+              <small *ngIf="kycForm.controls['ExpirationDate'].dirty && kycForm.hasError('required','ExpirationDate')" class="text-danger">*ExpirationDate is required</small>
+              <div class="form-group pt-3">
+                <div class="input-field" [class.error]="kycForm.controls['CVV'].dirty && kycForm.hasError('required','CVV')">
+                  <span class="fa fa-credit-card"></span>
+                    <input formControlName="CVV" type="CVV" placeholder="CVV" style="border: none; margin-left: 10px;">
+                </div>
+              </div>
+              <small *ngIf="kycForm.controls['CVV'].dirty && kycForm.hasError('required','CVV')" class="text-danger">*CVV is required</small>
+              <button type="submit" class="btn btn-primary btn-block mt-4 w-100" (click)="onKyc()">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

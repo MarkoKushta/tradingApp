@@ -12,6 +12,11 @@ import { StockServicesService } from 'src/app/services/stock-services/stock-serv
 })
 export class StocksDashboardComponent implements OnInit {
 
+  marketStatus!: string;
+  intervalId: any;
+  userId = localStorage.getItem('userId');
+  Balance: any;
+
   stocks: string[] = [
     "AAPL",
     "GOOGL",
@@ -65,7 +70,15 @@ export class StocksDashboardComponent implements OnInit {
     "ADBE"
   ];
 
-  ngOnInit() {}
+
+
+  ngOnInit() {
+    this.updateMarketStatus();
+    this.getBalance();
+    this.intervalId = setInterval(() => {
+      this.updateMarketStatus();
+    }, 5 * 60 * 1000);
+  }
 
   //searchQuery = '';
   filteredStocks: string[] = this.stocks;
@@ -75,13 +88,19 @@ export class StocksDashboardComponent implements OnInit {
     this.currentPage = 1;
   }
 */
+
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 7;
 
   constructor(
     private stockService: StockServicesService,
     private router: Router
   ) {}
+
+
+  get randomInt(): number {
+    return Math.floor(Math.random() * (500 - 100 + 1)) + 100;
+  }
 
   get totalPages(): number {
     return Math.ceil(this.stocks.length / this.itemsPerPage);
@@ -107,8 +126,55 @@ export class StocksDashboardComponent implements OnInit {
   }
 
   navigateToStocks(symbol: string) {
-	this.router.navigate(['/stocks', symbol]);
+	  this.router.navigate(['/stocks', symbol]);
   }
+
+  navigateToPortfolio() {
+    this.router.navigate(['/portfolio']);
+  }
+
+  getBalance() {
+    console.log(this.userId);
+    this.stockService.getBalanceByUser(this.userId).subscribe(
+      (balance) => {
+        // Round down balance to nearest integer
+        this.Balance = Math.floor(balance);
+        console.log(this.Balance);
+        return this.Balance;
+      },
+      (error) => {
+        // Handle error
+        console.error(error);
+      }
+    );
+  }
+
+  updateMarketStatus() {
+    const currentTime = new Date();
+    const currentHour = currentTime.getUTCHours();
+    const currentMinute = currentTime.getUTCMinutes();
+
+    // Market is open from 9:30 AM to 4:00 PM (UTC-4)
+    if (
+      (currentHour === 13 && currentMinute >= 30) ||
+      (currentHour > 13 && currentHour < 20) ||
+      (currentHour === 20 && currentMinute === 0)
+    ) {
+      // Market is open
+      this.marketStatus = 'Open';
+    } else {
+      // Market is closed
+      this.marketStatus = 'Closed';
+    }
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/stocks-dashboard']);
+  }
+
+  navigateToOptions() {
+    this.router.navigate(['/options']);
+  }
+
+
 }
-
-

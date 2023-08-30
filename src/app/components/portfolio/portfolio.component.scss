@@ -149,6 +149,15 @@ li:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.above-list {
+  cursor:default;
+}
+
+li.above-list:hover{
+  transform: none;
+  box-shadow: none;
+}
+
 img {
   width: 40px;
   height: 40px;
@@ -184,7 +193,11 @@ p {
   font-size: 18px;
 }
 
-.curr-price {
+.prices {
+  display: flex;
+}
+
+.curr-price.buy {
   background-position-x: 2;
   width: 100px;
   height: 40px;
@@ -196,5 +209,22 @@ p {
   font-weight:bold;
 }
 
+.curr-price.quantity {
+  background-position-x: 2;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  display:flex;
+  align-items: center;
+  justify-content:center;
+  color:black;
+  font-weight:bold;
+}
 
+.curr-price.buy.inner {
+  margin-right: 10px;
+}
 
+button[disabled] {
+  cursor: not-allowed;
+}
