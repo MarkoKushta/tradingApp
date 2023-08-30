@@ -116,9 +116,6 @@ namespace tradingAppCS.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("text");
 
-                    b.Property<string>("Token")
-                        .HasColumnType("text");
-
                     b.Property<string>("Username")
                         .HasColumnType("text");
 

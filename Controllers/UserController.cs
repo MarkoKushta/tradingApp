@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using tradingAppCS.Context;
 using tradingAppCS.Models;
 
@@ -13,9 +16,37 @@ namespace tradingAppCS.Controllers
     public class UserController : ControllerBase
     {
         private readonly tradingAppDBContext _authContext;
-        public UserController(tradingAppDBContext context)
+        private readonly IConfiguration _configuration;
+        public UserController(IConfiguration configuration, tradingAppDBContext context)
         {
             _authContext = context;
+            _configuration = configuration;
+        }
+
+        [HttpPost("CreateToken")]
+        public string CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim("UserName", user.Username),
+                new Claim("UserId", user.Id.ToString()),
+                new Claim("Email", user.Email)
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            
+            
+            return jwt;
         }
         
         [HttpGet("GetAllUsers")]
@@ -103,6 +134,7 @@ namespace tradingAppCS.Controllers
                 return BadRequest();
 
             var user = await _authContext.Users.FirstOrDefaultAsync(x => x.Email == userObj.Email);
+            var id = userObj.Id;
 
             if (user == null)
                 return NotFound(new { Message = "User not found!" });
@@ -116,12 +148,11 @@ namespace tradingAppCS.Controllers
             if (result == PasswordVerificationResult.Failed)
                 return BadRequest(new { Message = "Invalid password!" });
 
+            string token = CreateToken(user);
+            
             return Ok(new
             {
-                Message = "Login Success!",
-                UserId = user.Id,
-                UserName = user.Username,
-                Email = user.Email
+                token
             });
         }
         
@@ -163,6 +194,8 @@ namespace tradingAppCS.Controllers
                 Message = "KYC Posted!"
             });
         }
+
         
+       
     }
 }

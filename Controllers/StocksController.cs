@@ -38,7 +38,13 @@ public class StocksController: ControllerBase
 
         var response = await _authContext.StocksTable
             .Where(x => x.UserId == userId).ToListAsync();
-        return Ok(response);
+        var kyc = await _authContext.kycTable.FirstOrDefaultAsync(x => x.UserId == userId);
+        
+        return Ok(new
+        {
+            response,
+            isKycCompleted = kyc.Status
+        });
     }
     
     private static Dictionary<decimal, (decimal, DateTime)> buyingPriceCache = new Dictionary<decimal, (decimal, DateTime)>();
