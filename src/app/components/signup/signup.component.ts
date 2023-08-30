@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
         next:(res=>{
 
           this.signUpForm.reset();
-          this.router.navigate(['login'])
+          this.router.navigate([''])
 
         })
         ,error:(err=>{

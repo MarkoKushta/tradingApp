@@ -13,6 +13,7 @@ export class PortfolioComponent implements OnInit {
   marketStatus!: string;
   intervalId: any;
   Balance: any;
+  isKycCompleted: any;
 
   constructor( private router : Router, private stockService: StockServicesService, private route: ActivatedRoute, ) { }
 
@@ -31,8 +32,17 @@ export class PortfolioComponent implements OnInit {
   getBoughtStocks() {
     if (this.userId !== null) {
       this.stockService.getStocksByUser(this.userId).subscribe(res => {
-        this.boughtStocksList = res;
+        this.boughtStocksList = res.response;
         console.log(res);
+        if(res.status === 0){
+          this.isKycCompleted = 'False';
+        }
+        else{
+          this.isKycCompleted = 'True';
+        }
+        localStorage.setItem('isKycCompleted', this.isKycCompleted);
+        console.log(this.isKycCompleted);
+
       });
     }
   }
