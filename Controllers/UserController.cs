@@ -63,7 +63,7 @@ namespace tradingAppCS.Controllers
             if (user == null)
                 return NotFound(new { Message = "User not found" });
 
-            user.Balance = dollas;
+            user.Balance += dollas;
             
             await _authContext.SaveChangesAsync();
             return Ok(new

@@ -38,12 +38,10 @@ public class StocksController: ControllerBase
 
         var response = await _authContext.StocksTable
             .Where(x => x.UserId == userId).ToListAsync();
-        var kyc = await _authContext.kycTable.FirstOrDefaultAsync(x => x.UserId == userId);
         
         return Ok(new
         {
-            response,
-            isKycCompleted = kyc.Status
+            response
         });
     }
     
@@ -78,7 +76,7 @@ public class StocksController: ControllerBase
     {
 
         var response = await _authContext.TransactionsTable
-            .FirstOrDefaultAsync(x => x.UserId == userId);
+            .Where(x => x.UserId == userId).ToListAsync();
         return Ok(response);
     }
     
@@ -88,7 +86,14 @@ public class StocksController: ControllerBase
 
         var response = await _authContext.Users
             .FirstOrDefaultAsync(x => x.Id == userId);
-        return Ok(response.Balance);
+        
+        var kyc = await _authContext.kycTable.FirstOrDefaultAsync(x => x.UserId == userId);
+
+        return Ok(new
+        {
+            response.Balance,
+            isKycCompleted = kyc.Status
+        });
     }
     
     
